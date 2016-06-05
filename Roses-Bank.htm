@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
+    <title>The Factory</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-2 ">
+                <h2>Business Simulation</h2>
+                <label>Days worked .</label>
+                <input type="text" id="daysWorked" />
+                <button onclick="actualSales()">Simulate</button>
+                <div id="simulator"> </div>
+            </div>
+<div class="col-sm-3" id="final"></div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    
+    <script>
+    
+    var bank = 200;
+    var startroses = 120;
+    var roseDozenCost = 60;
+    var profit = 0;
+    var daysProfit = 0;
+    var daysLoss = 0;
+    var yearSales = [];
+    
+    
+    function dailySales(min,max){
+        var sales = Math.floor(Math.random() * (max - min)) + min;
+        //console.log("Daily sales " + sales);
+        return sales;
+        
+    }
+    
+  
+    function actualSales(){
+        var daysWorked = document.getElementById('daysWorked').value;
+        
+       var bank = 200;        
+        document.getElementById('simulator').innerHTML = "";
+        document.getElementById('final').innerHTML = "";
+        
+        for(i=1;i<=daysWorked;i++){
+            if (bank >= 60){
+                var sold = dailySales(10,120);
+                var sales = sold * 2;
+            
+                bank = bank - roseDozenCost;
+      
+                bank = bank + sales;
+        
+                pAndL(sales);
+                
+                var content = 'Day #'+ i + '<br> Roses Sold: ' + sold + '<br> Sales: ' + (sold * 2) + '<br><br>';
+        
+                document.getElementById('simulator').innerHTML += content;
+        
+            } else {document.getElementById('simulator').innerHTML += "You lose" }
+        } 
+        
+        document.getElementById('final').innerHTML += 'Days of Profit = ' + daysProfit + '<br><br>';
+        
+        document.getElementById('final').innerHTML += 'Days of Loss = ' + daysLoss + '<br><br>';
+        
+        document.getElementById('final').innerHTML += 'Bank Balance = ' + bank;
+        
+        if (bank > 200){
+            yearSales.push(bank-200);
+            console.log(yearSales);
+        }
+        
+    }
+    
+    
+    function pAndL(sales){
+        if (sales >= 60){
+            daysProfit += 1;
+        } else {
+            daysLoss += 1;
+        }
+        
+    }
+    
+  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </script>
+</body>
+</html>
